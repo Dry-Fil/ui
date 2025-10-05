@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { Card, Typography, Input, Button } from "@material-tailwind/react";
 import { useEsp32 } from "@/context/esp32Context";
+import { useMaterialTailwindController } from "@/context";
 
 export function AutomaticMode() {
   const { esp32State, sendCommand } = useEsp32();
+  const [controller] = useMaterialTailwindController();
+  const { theme } = controller;
   const [targetTempInput, setTargetTempInput] = useState(esp32State.target_temp || 45);
   const [dryingDurationInput, setDryingDurationInput] = useState(esp32State.remaining_time / 3600 || 2); // Convert seconds to hours
+
+  const isDarkMode = theme === "dark";
 
   const isCycleActive = esp32State.mode === "AUTOMATIC" && esp32State.remaining_time > 0;
 
@@ -39,8 +44,8 @@ export function AutomaticMode() {
   };
 
   return (
-    <Card className="mt-6 p-4">
-      <Typography variant="h5" color="blue-gray" className="mb-4">
+    <Card className={`mt-6 p-4 ${isDarkMode ? "dark:bg-gray-800" : "bg-white"}`}>
+      <Typography variant="h5" color={isDarkMode ? "white" : "blue-gray"} className="mb-4">
         Automatic Mode
       </Typography>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -53,6 +58,10 @@ export function AutomaticMode() {
             value={targetTempInput}
             onChange={(e) => setTargetTempInput(e.target.value)}
             disabled={isCycleActive}
+            labelProps={{
+              className: isDarkMode ? "text-blue-gray-200" : "",
+            }}
+            className={isDarkMode ? "text-white" : ""}
           />
         </div>
         <div>
@@ -64,15 +73,19 @@ export function AutomaticMode() {
             value={dryingDurationInput}
             onChange={(e) => setDryingDurationInput(e.target.value)}
             disabled={isCycleActive}
+            labelProps={{
+              className: isDarkMode ? "text-blue-gray-200" : "",
+            }}
+            className={isDarkMode ? "text-white" : ""}
           />
         </div>
       </div>
 
       <div className="mb-4">
-        <Typography variant="h6" color="blue-gray">
+        <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}>
           Current Target Temperature: {esp32State.target_temp}°C
         </Typography>
-        <Typography variant="h6" color="blue-gray">
+        <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}>
           Remaining Time: {formatRemainingTime(esp32State.remaining_time)}
         </Typography>
       </div>

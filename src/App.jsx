@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Dashboard, Auth } from "@/layouts";
+import { Dashboard } from "@/layouts/dashboard";
+import { Auth } from "@/layouts/auth";
 import React, { useEffect } from "react";
 import { useMaterialTailwindController } from "@/context";
 

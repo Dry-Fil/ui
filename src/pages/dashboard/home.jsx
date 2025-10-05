@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Typography,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter, // Added CardFooter
-  IconButton,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Button,
 } from "@material-tailwind/react";
-import {
-  EllipsisVerticalIcon,
-} from "@heroicons/react/24/outline";
 import {
   InformationCircleIcon, // Fallback generic icon
   ClockIcon,
@@ -26,7 +13,7 @@ import {
   StopIcon, // For is_running
   AdjustmentsHorizontalIcon, // For mode
 } from "@heroicons/react/24/solid";
-import { StatisticsCard } from "@/widgets/cards";
+import { StatisticsCard } from "@/widgets/cards/statistics-card";
 import Chart from "react-apexcharts"; // Import Chart directly
 import { getSensorData, toggleDevice } from "@/services/esp32";
 import { useMaterialTailwindController } from "@/context"; // Import useMaterialTailwindController
@@ -202,8 +189,10 @@ export function Home() {
     },
   };
 
+  const isDarkMode = theme === "dark";
+
   return (
-    <div className="mt-12 dark:bg-gray-900">
+    <div className={`mt-12 ${isDarkMode ? "dark:bg-gray-900" : "bg-white"}`}> {/* Adjust main div background */}
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
         {/* Sensor Data Cards */}
         <StatisticsCard
@@ -291,7 +280,7 @@ export function Home() {
       {/* Historical Data Charts */}
       <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-2">
         <div>
-          <Typography variant="h6" color={theme === "dark" ? "white" : "blue-gray"}>
+          <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}> {/* Adjust Typography color */}
             Temperature History
           </Typography>
           <Chart
@@ -302,7 +291,7 @@ export function Home() {
           />
         </div>
         <div>
-          <Typography variant="h6" color={theme === "dark" ? "white" : "blue-gray"}>
+          <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}> {/* Adjust Typography color */}
             Humidity History
           </Typography>
           <Chart
@@ -314,7 +303,6 @@ export function Home() {
         </div>
       </div>
 
-      {/* Removed Projects and Orders Overview sections */}
     </div>
   );
 }

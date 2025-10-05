@@ -1,9 +1,14 @@
 import React from "react";
 import { Card, Typography, Switch, Alert } from "@material-tailwind/react"; // Added Alert
 import { useEsp32 } from "@/context/esp32Context";
+import { useMaterialTailwindController } from "@/context";
 
 export function ManualMode() {
   const { esp32State, sendCommand } = useEsp32();
+  const [controller] = useMaterialTailwindController();
+  const { theme } = controller;
+
+  const isDarkMode = theme === "dark";
 
   const handleToggle = (component, state) => {
     let command;
@@ -27,8 +32,8 @@ export function ManualMode() {
   };
 
   return (
-    <Card className="mt-6 p-4">
-      <Typography variant="h5" color="blue-gray" className="mb-4">
+    <Card className={`mt-6 p-4 ${isDarkMode ? "dark:bg-gray-800" : "bg-white"}`}>
+      <Typography variant="h5" color={isDarkMode ? "white" : "blue-gray"} className="mb-4">
         Manual Mode
       </Typography>
       <Alert color="orange" className="mb-4">
@@ -37,7 +42,7 @@ export function ManualMode() {
 
       <div className="grid grid-cols-1 gap-4">
         <div className="flex items-center justify-between">
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}>
             Heater
           </Typography>
           <Switch
@@ -48,7 +53,7 @@ export function ManualMode() {
           />
         </div>
         <div className="flex items-center justify-between">
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}>
             Intake Fan
           </Typography>
           <Switch
@@ -59,7 +64,7 @@ export function ManualMode() {
           />
         </div>
         <div className="flex items-center justify-between">
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}>
             Exhaust Fan
           </Typography>
           <Switch
@@ -70,7 +75,7 @@ export function ManualMode() {
           />
         </div>
         <div className="flex items-center justify-between">
-          <Typography variant="h6" color="blue-gray">
+          <Typography variant="h6" color={isDarkMode ? "white" : "blue-gray"}>
             Heat Distributor Fan
           </Typography>
           <Switch

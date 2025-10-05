@@ -21,9 +21,6 @@ export function reducer(state, action) {
     case "FIXED_NAVBAR": {
       return { ...state, fixedNavbar: action.value };
     }
-    case "OPEN_CONFIGURATOR": {
-      return { ...state, openConfigurator: action.value };
-    }
     case "TOGGLE_THEME": {
       return { ...state, theme: action.value };
     }
@@ -40,8 +37,7 @@ export function MaterialTailwindControllerProvider({ children }) {
     sidenavType: "white",
     transparentNavbar: true,
     fixedNavbar: false,
-    openConfigurator: false,
-    theme: "light", // Add theme state, default to light
+    theme: localStorage.getItem("theme") || "light", // Initialize theme from local storage
   };
 
   const [controller, dispatch] = React.useReducer(reducer, initialState);
@@ -85,7 +81,7 @@ export const setTransparentNavbar = (dispatch, value) =>
   dispatch({ type: "TRANSPARENT_NAVBAR", value });
 export const setFixedNavbar = (dispatch, value) =>
   dispatch({ type: "FIXED_NAVBAR", value });
-export const setOpenConfigurator = (dispatch, value) =>
-  dispatch({ type: "OPEN_CONFIGURATOR", value });
-export const setTheme = (dispatch, value) =>
+export const setTheme = (dispatch, value) => {
+  localStorage.setItem("theme", value); // Store theme in local storage
   dispatch({ type: "TOGGLE_THEME", value });
+};

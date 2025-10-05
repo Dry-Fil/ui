@@ -25,9 +25,8 @@ export function Sidenav({ brandImg, brandName, routes }) {
 
   return (
     <aside
-      className={`${sidenavTypes[sidenavType]} ${
-        openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100 dark:border-blue-gray-800 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800`}
+      className={`${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"
+        } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100 dark:border-blue-gray-800 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800`}
     >
       <div
         className={`relative`}
@@ -75,8 +74,8 @@ export function Sidenav({ brandImg, brandName, routes }) {
                         isActive
                           ? sidenavColor
                           : theme === "dark"
-                          ? "white"
-                          : "blue-gray"
+                            ? "white"
+                            : "blue-gray"
                       }
                       className="flex items-center gap-4 px-4 capitalize"
                       fullWidth
@@ -120,7 +119,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
 
 Sidenav.defaultProps = {
   brandImg: "/img/logo-ct.png",
-  brandName: "Material Tailwind React",
+  brandName: "DryFil",
 };
 
 Sidenav.propTypes = {

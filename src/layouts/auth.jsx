@@ -1,39 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import {
-  ChartPieIcon,
-  UserIcon,
-  UserPlusIcon,
-  ArrowRightOnRectangleIcon,
-} from "@heroicons/react/24/solid";
-import { Navbar, Footer } from "@/widgets/layout";
 import routes from "@/routes";
+import { useMaterialTailwindController } from "@/context"; // Import useMaterialTailwindController
 
 export function Auth() {
-  const navbarRoutes = [
-    {
-      name: "dashboard",
-      path: "/dashboard/home",
-      icon: ChartPieIcon,
-    },
-    {
-      name: "profile",
-      path: "/dashboard/home",
-      icon: UserIcon,
-    },
-    {
-      name: "sign up",
-      path: "/auth/sign-up",
-      icon: UserPlusIcon,
-    },
-    {
-      name: "sign in",
-      path: "/auth/sign-in",
-      icon: ArrowRightOnRectangleIcon,
-    },
-  ];
+  const [controller] = useMaterialTailwindController(); // Get controller
+  const { theme } = controller; // Get theme from controller
+  const isDarkMode = theme === "dark"; // Determine if dark mode is active
 
   return (
-    <div className="relative min-h-screen w-full">
+    <div className={`relative min-h-screen w-full ${isDarkMode ? "dark:bg-gray-900" : "bg-white"}`}> {/* Apply dark mode background */}
       <Routes>
         {routes.map(
           ({ layout, pages }) =>
